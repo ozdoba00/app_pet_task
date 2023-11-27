@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PetController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('pets')->group(function () {
+    Route::get('/findByStatus', [PetController::class, 'findByStatus'])->name('pets.findByStatus');
+    Route::get('/findById', [PetController::class, 'findById'])->name('pets.findById');
+    Route::post('/add-pet', [PetController::class, 'addPet'])->name('pets.addPet');
+    Route::put('/update-pet', [PetController::class, 'updatePet'])->name('pets.updatePet');
+    Route::post('/add-image-pet', [PetController::class, 'addImagePet'])->name('pets.addImagePet');
+    Route::delete('/delete-pet', [PetController::class, 'deletePet'])->name('pets.deletePet');
 });
